@@ -1,0 +1,24 @@
+{
+  "name": "generator-platanus-angular-library",
+  "version": "0.0.1",
+  "description": "A Yeoman generator for Angular libraries using Platanus conventions.",
+  "license": "MIT",
+  "main": "app/index.js",
+  "repository": "platanus/generator-angular-library",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "files": [
+    "app"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "fs-extra": "^0.16.5",
+    "shelljs": "^0.4.0",
+    "yeoman-generator": "^0.18.9",
+    "yosay": "^1.0.2"
+  }
+}
