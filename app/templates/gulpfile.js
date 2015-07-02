@@ -6,7 +6,8 @@ var gulp = require('gulp'),
     notify = require('gulp-notify'),
     git = require('gulp-git'),
     size = require('gulp-size'),
-    ngannotate = require('gulp-ng-annotate');
+    ngannotate = require('gulp-ng-annotate'),
+    npm = require('npm');
 
 var paths = {
   src: ['./src/index.js','./src/*.js'],
@@ -37,7 +38,7 @@ gulp.task('bump', function () {
     .pipe(gulp.dest('./'));
 });
 
-gulp.task('publish', ['bump'], function () {
+gulp.task('publish-git', ['bump'], function () {
   var pkg = require('./package.json');
   var msg = 'Bumps version '+pkg.version;
   gulp.src('./*.json')
@@ -48,4 +49,13 @@ gulp.task('publish', ['bump'], function () {
         git.push('origin', 'master', { args: '--tags' }, function(){});
       });
     }, 1000);
+});
+
+gulp.task('publish-npm', ['publish-git'], function() {
+  npm.load({}, function(error) {
+    if (error) return console.error(error);
+    npm.commands.publish(['.'], function(error) {
+      if (error) return console.error(error);
+    });
+  });
 });
