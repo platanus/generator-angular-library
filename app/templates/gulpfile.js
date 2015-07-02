@@ -43,12 +43,10 @@ gulp.task('publish-git', ['bump'], function () {
   var msg = 'Bumps version '+pkg.version;
   gulp.src('./*.json')
     .pipe(git.add())
-    .pipe(git.commit(msg));
-    setTimeout(function () {
-      git.tag('v'+pkg.version, msg, function(){
-        git.push('origin', 'master', { args: '--tags' }, function(){});
-      });
-    }, 1000);
+    .pipe(git.commit(msg))
+    .pipe(git.tag('v'+pkg.version, msg, function(){
+      git.push('origin', 'master', { args: '--tags' }, function(){});
+    }));
 });
 
 gulp.task('publish-npm', ['publish-git'], function() {
