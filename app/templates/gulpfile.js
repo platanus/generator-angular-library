@@ -33,9 +33,19 @@ gulp.task('build', ['lint'], function() {
 });
 
 gulp.task('bump', function () {
-  return gulp.src(['./bower.json', './package.json'])
-    .pipe(bump({type: gulp.env.type}))
-    .pipe(gulp.dest('./'));
+  var versionType = 'major';
+  return gulp.src(['.']).pipe(
+    prompt.prompt({
+      type: 'list',
+      name: 'bump',
+      message: 'What type of bump would you like to do?',
+      choices: ['patch', 'minor', 'major']
+    }, function(res){
+      versionType = res.bump;
+      gulp.src(['./bower.json', './package.json'])
+        .pipe(bump({type: versionType}))
+        .pipe(gulp.dest('./'));
+    }));
 });
 
 gulp.task('publish-git', ['bump'], function () {
