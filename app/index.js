@@ -69,6 +69,8 @@ module.exports = yeoman.generators.Base.extend({
         {
           libraryName: 'angular-'+this.options.libraryName,
           moduleName: getNameSpacedModule(namespace, moduleName),
+          namespace: namespace,
+          year: new Date().getFullYear(),
           componentType: this.options.componentType
         }
       );
