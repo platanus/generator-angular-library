@@ -24,7 +24,7 @@ module.exports = yeoman.generators.Base.extend({
     var prompts = [{
       type: 'input',
       name: 'namespace',
-      message: 'What is the namespace of the Angular module',
+      message: 'What is the namespace of the Angular module. (Input N/A to disable)',
       default: 'platanus'
     }, {
       type: 'input',
@@ -77,7 +77,7 @@ module.exports = yeoman.generators.Base.extend({
 
       function getNameSpacedModule(namespace, modulename) {
         var nameSpacedModule = '';
-        if(namespace) {
+        if(namespace !== 'N/A') {
           nameSpacedModule += namespace+'.';
         }
         nameSpacedModule += modulename;
