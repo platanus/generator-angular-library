@@ -35,7 +35,7 @@ gulp.task('build', ['lint'], function() {
 
 gulp.task('bump', function (cb) {
   var versionType = 'major';
-  return gulp.src(['.']).pipe(
+  gulp.src(['.']).pipe(
     prompt.prompt({
       type: 'list',
       name: 'bump',
@@ -52,22 +52,25 @@ gulp.task('bump', function (cb) {
     }));
 });
 
-gulp.task('publish-git', ['bump'], function () {
+gulp.task('publish-git', ['bump'], function (cb) {
   var pkg = require('./package.json');
   var msg = 'Bumps version '+pkg.version;
   gulp.src('./*.json')
     .pipe(git.add())
     .pipe(git.commit(msg))
     .pipe(git.tag('v'+pkg.version, msg, function(){
-      git.push('origin', 'master', { args: '--tags' }, function(){});
+      git.push('origin', 'master', { args: '--tags' }, function(){
+        cb();
+      });
     }));
 });
 
-gulp.task('publish-npm', ['publish-git'], function() {
+gulp.task('publish-npm', ['publish-git'], function(cb) {
   npm.load({}, function(error) {
     if (error) return console.error(error);
     npm.commands.publish(['.'], function(error) {
       if (error) return console.error(error);
+      cb();
     });
   });
 });
