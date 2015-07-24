@@ -1,6 +1,6 @@
 {
   "name": "generator-platanus-angular-library",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A Yeoman generator for Angular libraries using Platanus conventions.",
   "license": "MIT",
   "main": "app/index.js",
