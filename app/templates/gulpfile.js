@@ -6,7 +6,9 @@ var gulp = require('gulp'),
     notify = require('gulp-notify'),
     git = require('gulp-git'),
     size = require('gulp-size'),
-    ngannotate = require('gulp-ng-annotate');
+    ngannotate = require('gulp-ng-annotate'),
+    npm = require('npm'),
+    prompt = require('gulp-prompt');
 
 var paths = {
   src: ['./src/index.js','./src/*.js'],
@@ -31,21 +33,44 @@ gulp.task('build', ['lint'], function() {
     .pipe(notify('Build finished'));
 });
 
-gulp.task('bump', function () {
-  return gulp.src(['./bower.json', './package.json'])
-    .pipe(bump({type: gulp.env.type}))
-    .pipe(gulp.dest('./'));
+gulp.task('bump', function (cb) {
+  var versionType = 'major';
+  gulp.src(['.']).pipe(
+    prompt.prompt({
+      type: 'list',
+      name: 'bump',
+      message: 'What type of bump would you like to do?',
+      choices: ['patch', 'minor', 'major']
+    }, function(res){
+      versionType = res.bump;
+      gulp.src(['./bower.json', './package.json'])
+        .pipe(bump({type: versionType}))
+        .pipe(gulp.dest('./'))
+        .on('end', function(){
+          cb();
+        });
+    }));
 });
 
-gulp.task('publish', ['bump'], function () {
+gulp.task('publish-git', ['bump'], function (cb) {
   var pkg = require('./package.json');
   var msg = 'Bumps version '+pkg.version;
   gulp.src('./*.json')
     .pipe(git.add())
-    .pipe(git.commit(msg));
-    setTimeout(function () {
-      git.tag('v'+pkg.version, msg, function(){
-        git.push('origin', 'master', { args: '--tags' }, function(){});
+    .pipe(git.commit(msg))
+    .pipe(git.tag('v'+pkg.version, msg, function(){
+      git.push('origin', 'master', { args: '--tags' }, function(){
+        cb();
       });
-    }, 1000);
+    }));
+});
+
+gulp.task('publish-npm', ['publish-git'], function(cb) {
+  npm.load({}, function(error) {
+    if (error) return console.error(error);
+    npm.commands.publish(['.'], function(error) {
+      if (error) return console.error(error);
+      cb();
+    });
+  });
 });

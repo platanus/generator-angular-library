@@ -17,6 +17,7 @@
   "dependencies": {
     "chalk": "^1.0.0",
     "fs-extra": "^0.16.5",
+    "inflection": "^1.7.1",
     "shelljs": "^0.4.0",
     "yeoman-generator": "^0.18.9",
     "yosay": "^1.0.2"

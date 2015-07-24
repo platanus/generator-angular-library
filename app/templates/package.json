@@ -1,7 +1,7 @@
 {
   "name": "<%= libraryName %>",
   "description": "",
-  "version": "0.0.2",
+  "version": "0.0.0",
   "devDependencies": {
     "jasmine-core": "^2.2.0",
     "karma": "^0.12.31",
@@ -16,6 +16,8 @@
     "gulp-size": "^1.2.0",
     "gulp-uglify": "^1.1.0",
     "jshint-stylish": "^1.0.0",
-    "gulp-ng-annotate": "^1.0.0"
+    "gulp-ng-annotate": "^1.0.0",
+    "npm": "^2.10.1",
+    "gulp-prompt": "^0.1.2"
   }
 }
