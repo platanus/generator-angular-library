@@ -7,7 +7,8 @@ var gulp = require('gulp'),
     git = require('gulp-git'),
     size = require('gulp-size'),
     ngannotate = require('gulp-ng-annotate'),
-    npm = require('npm');
+    npm = require('npm'),
+    prompt = require('gulp-prompt');
 
 var paths = {
   src: ['./src/index.js','./src/*.js'],
@@ -32,7 +33,7 @@ gulp.task('build', ['lint'], function() {
     .pipe(notify('Build finished'));
 });
 
-gulp.task('bump', function () {
+gulp.task('bump', function (cb) {
   var versionType = 'major';
   return gulp.src(['.']).pipe(
     prompt.prompt({
@@ -44,7 +45,10 @@ gulp.task('bump', function () {
       versionType = res.bump;
       gulp.src(['./bower.json', './package.json'])
         .pipe(bump({type: versionType}))
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest('./'))
+        .on('end', function(){
+          cb();
+        });
     }));
 });
 
