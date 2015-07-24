@@ -33,7 +33,8 @@ module.exports = yeoman.generators.Base.extend({
       default: 'myLibrary',
       validate: function(input) {
         var valid = (/^[a-z]+([A-Z]+[A-Za-z0-9]+)*$/).test(input);
-        return valid || 'Module name should be camelCase';
+        var camelCasedName = inflection.camelize(input.replace(/-/g,'_'), true);
+        return valid || 'Module name should be camelCase, try '+camelCasedName;
       }
     }, {
       type: 'input',
