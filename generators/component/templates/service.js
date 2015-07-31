@@ -3,7 +3,7 @@
 
   angular
     .module('<%= moduleName %>')
-    .service('service', service);
+    .service('<%= componentName %>', service);
 
   function service() {
     this.myFunction = myFunction;

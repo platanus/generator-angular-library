@@ -8,10 +8,6 @@ var yosay = require('yosay');
 var shelljs = require('shelljs');
 
 module.exports = yeoman.generators.Base.extend({
-  initializing: function () {
-    this.pkg = require('../package.json');
-  },
-
   prompting: function () {
     var done = this.async();
 
@@ -82,9 +78,7 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('./base'),
         this.destinationPath('.'),templateOptions);
 
-      this.fs.copyTpl(
-        this.templatePath('./components/'+this.options.componentType+'.js'),
-        this.destinationPath('./src/'+this.options.componentType+'.js'), templateOptions);
+      this.composeWith('platanus-angular-library:component', { options: templateOptions });
 
       if(demo) {
         console.log('Copying demo files...');
