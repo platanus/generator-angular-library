@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo App for <%= moduleName %></title>
+</head>
+<body ng-app="DemoApp">
+  <h1>Hello world!</h1>
+  <% if (componentType == 'service') { %>
+  <h2 ng-controller="DemoController">{{message}}</h2>
+  <% } else if (componentType == 'directive') { %>
+  <directive></directive>
+  <% } else if (componentType == 'filter') { %>
+  <h2>{{ 'This will be replaced.' | filter: 'filter' }}</h2>
+  <% } %>
+  <script src="../bower_components/angular/angular.min.js"></script>
+  <script src="../dist/<%= libraryName %>.min.js"></script>
+  <script src="demo.js"></script>
+</body>
+</html>
