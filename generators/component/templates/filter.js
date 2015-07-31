@@ -3,7 +3,7 @@
 
   angular
     .module('<%= moduleName %>')
-    .filter('filter', filter);
+    .filter('<%= componentName %>', filter);
 
   function filter() {
     return myFunction;

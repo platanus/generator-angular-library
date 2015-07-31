@@ -3,7 +3,7 @@
 
   angular
     .module('<%= moduleName %>')
-    .directive('directive', directive);
+    .directive('<%= componentName %>', directive);
 
   function directive() {
     var directive = {
