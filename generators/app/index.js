@@ -78,6 +78,7 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('./base'),
         this.destinationPath('.'),templateOptions);
 
+      templateOptions.componentName = templateOptions.componentType;
       this.composeWith('platanus-angular-library:component', { options: templateOptions });
 
       if(demo) {
