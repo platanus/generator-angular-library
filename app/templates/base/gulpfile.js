@@ -8,7 +8,9 @@ var gulp = require('gulp'),
     size = require('gulp-size'),
     ngannotate = require('gulp-ng-annotate'),
     npm = require('npm'),
-    prompt = require('gulp-prompt');
+    prompt = require('gulp-prompt'),
+    watch = require('gulp-watch'),
+    batch = require('gulp-batch');
 
 var paths = {
   src: ['./src/index.js','./src/*.js'],
@@ -21,6 +23,12 @@ gulp.task('lint', function() {
   return gulp.src(paths.src)
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('jshint-stylish'));
+});
+
+gulp.task('watch', function () {
+  watch(['src/**/*'], batch(function (events, done) {
+    gulp.start('build', done);
+  }));
 });
 
 gulp.task('build', ['lint'], function() {
