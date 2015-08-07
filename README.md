@@ -33,20 +33,31 @@ You will be prompted to enter the following information about your library to he
 
 After you enter all the required information, the generator will create the necessary files and run `npm install && bower install` to download the required dependencies. Once everything is in place, you can start your happy development process.
 
+## Subgenerators
+
+To help you extend your library with more components, you can run these subgenerators to add new boilerplate services, directives or filters to your project.
+
+- **`yo platanus-angular-library:service`** to generate a service,
+- **`yo platanus-angular-library:filter`** to generate a filter,
+- **`yo platanus-angular-library:directive`** to generate a directive.
+
+Alternatively, you can just run `yo platanus-angular-library:component` and you will be asked to select the type of the component you want to add.
+
 ## Usage
 
 Here's how to use all the goodies that come with our generator.
 
 ### Building 
 
-- `gulp lint` checks your JavaScript code for errors and warnings.
-- `gulp build` runs the `lint` task and annotates Angular dependencies in your code (using ngInclude), minifies and concatenates it in a single file named according to your previously set library name (`angular-my-library.min.js`), and places it in the `dist` folder.
+- **`gulp lint`** checks your JavaScript code for errors and warnings.
+- **`gulp build`** runs the `lint` task and annotates Angular dependencies in your code (using ngInclude), minifies and concatenates it in a single file named according to your previously set library name (`angular-my-library.min.js`), and places it in the `dist` folder.
+- **`gulp watch`** runs the `lint` and `build` tasks every time you make changes on a file in the `./src` folder of your project.
 
 ### Publishing
 
-- `gulp bump` increases the version number on the `package.json` and `bower.json` files.
-- `gulp publish-git` runs the `bump` task, creates a commit with the modified version and pushes a new tag that corresponds with it.
-- `gulp publish-npm` runs both aforementioned tasks and publishes the new version into the `npm` registry.
+- **`gulp bump`** increases the version number on the `package.json` and `bower.json` files.
+- **`gulp publish-git`** runs the `bump` task, creates a commit with the modified version and pushes a new tag that corresponds with it.
+- **`gulp publish-npm`** runs both aforementioned tasks and publishes the new version into the `npm` registry.
 
 ### Testing
 
